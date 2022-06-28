@@ -28,7 +28,12 @@ async function getWeather(city) {
   return data;
 }
 
-function getIconURL(id) {
+function getIconURL(iconCode, size = '2x') {
+  const url = `${ICON_URL}${iconCode}@${size}.png`;
+  return url;
+}
+
+function getIconCodeWithId(id) {
   let iconCode;
   switch (true) {
     case ((id >= 200) && (id <= 232)):
@@ -62,8 +67,9 @@ function getIconURL(id) {
     default:
       iconCode = '01n';
   }
-  const url = `${ICON_URL}${iconCode}@2x.png`;
-  return url;
+  return iconCode;
 }
 
-export { getWeather, cityToCoord, getIconURL };
+export {
+  getWeather, cityToCoord, getIconCodeWithId, getIconURL,
+};
