@@ -7,18 +7,29 @@
   margin: 0;
   padding: 0;
   font-family: "Koulen", cursive;
-  // font-family: "Lato", sans-serif;
 }
-@mixin lightTheme($theme: DarkGray) {
-  // background: $theme;
-  // box-shadow: 0 0 1px rgba($theme, .25);
-  color: #fff;
-}
+
 .light {
-  $background-image: "./clear-sky.jpg";
-  background-image: url($background-image);
-  background-position: center; /* Center the image */
-  background-repeat: no-repeat; /* Do not repeat the image */
+  --main-color: #fff;
+  --invt-color: rgb(227, 195, 168);
+  --sec-color: rgb(236, 109, 83);
+  --bck-color: rgba(160, 159, 159, 0.4);
+  color: var(--main-color);
+  background-image: url("./clear-sky.jpg");
+  background-position: center; 
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.dark {
+  --main-color: rgb(35, 34, 34);
+  --invt-color: rgb(223, 215, 255);
+  --sec-color: rgb(236, 109, 83);
+  --bck-color: rgba(255, 255, 255, 0.4);
+  color: var(--main-color);
+  background-image: url("./night-sky.jpg");
+  background-position: center; 
+  background-repeat: no-repeat; 
   background-size: cover;
 }
 
@@ -28,28 +39,132 @@
 }
 
 .main {
-  @include lightTheme;
   display: grid;
   grid-template-columns: minmax(auto, 1fr) minmax(auto, 2fr) minmax(auto, 1fr);
-  padding: 4rem 2rem;
   justify-items: center;
 
+  .basic {
+    display: grid;
+    grid-template-rows: repeat(6, auto) 1fr;
+    align-items: center;
+    #weather-description {
+      color: var(--invt-color);
+      font-size: 2rem;
+      align-self: end;
+    }
+    #city,
+    #date {
+      font-family: "Lato", sans-serif;
+      font-weight: 500;
+      font-style: italic;
+      color: var(--main-color);
+    }
+    #date {
+      font-size: 0.8rem;
+      align-self: end;
+    }
+    #temp {
+      font-size: 2.5rem;
+      color: var(--sec-color);
+    }
+    button {
+      font-size: 1.1rem;
+      background: transparent;
+      border: none;
+      color: var(--main-color);
+      text-align: left;
+      cursor: pointer;
+    }
+    .search-box {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      input {
+        background: transparent;
+        border: none;
+        border-bottom: var(--sec-color) solid 1px;
+      }
+      input:focus {
+        background: rgba(255, 255, 255, 0.4);
+        outline: none;
+      }
+      .iconify {
+        font-size: 1.5rem;
+        cursor: pointer;
+      }
+    }
+  }
+
+  .advance,
+  .basic {
+    color: var(--main-color);
+    background: var(--bck-color);
+    padding: 2rem;
+  }
   .advance {
     display: grid;
     grid-auto-flow: row;
     gap: 0.8rem;
     > div {
       display: grid;
-      grid-template-columns: minmax(auto, 1fr) 1fr;
+      grid-template-columns: auto 1fr;
+      grid-template-rows: repeat(2, auto);
+      .text {
+        align-self: end;
+      }
       .number {
         grid-column: 2/3;
+
       }
       .iconify {
+        color: var(--invt-color);
         margin-right: 0.5rem;
         font-size: 2rem;
-        justify-self: right;
+        align-self: center;
         grid-row: 1/3;
       }
     }
+  }
+}
+
+body {
+  display: grid;
+  grid-template-rows: 1fr repeat(1, minmax(2rem, 0.5fr)) auto 1fr;
+  padding: 4rem 2rem 0 2rem;
+  height: 100vh;
+  width: 100vw;
+}
+
+.extended {
+  font-size: 1.4rem;
+  display: grid;
+  gap: 0.8rem;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  justify-items: center;
+  overflow-y: auto;
+  .card {
+    display: grid;
+    grid-auto-flow: row;
+    justify-items: center;
+    width: 120px;
+    background-color: var(--bck-color);
+    padding: 1rem;
+    border: rgba(0, 0, 0, 0) solid 1px;
+    .day{
+      color: var(--invt-color);
+    }
+  }
+}
+.card:hover {
+  border: var(--sec-color) solid 1px;
+  box-shadow: 0px 0px 8px var(--bck-color);
+}
+
+footer {
+  align-self: end;
+  justify-self: center;
+  a {
+    text-decoration: none;
+    color: var(--invt-color);
   }
 }
