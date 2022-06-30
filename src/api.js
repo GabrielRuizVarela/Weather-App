@@ -1,9 +1,9 @@
 import * as utils from './utils';
 
-const WEATHER_URL = 'https://api.openweathermap.org/data/2.5/forecast?';
+const WEATHER_URL = 'https://api.openweathermap.org/data/2.5/onecall?';
 const GEOCODING_URL = 'https://api.openweathermap.org/geo/1.0/direct?q=';
 const ICON_URL = 'http://openweathermap.org/img/wn/';
-const API_KEY = '2de9096107bcad3aa4fb3a0915e43d01';
+const API_KEY = '2de9096107bcad3aa4fb3a0915e43d01'; // "Later during the backend courses you will learn ways to securely deal with these topics." The Odin Project
 
 async function APICall(url) {
   const response = await fetch(url, { mode: 'cors' });
@@ -15,16 +15,27 @@ async function cityToCoord(city) {
   const url = `${GEOCODING_URL + city}&limit=1&appid=${API_KEY}`;
   const data = await utils.handleError(APICall)(url);
   const coord = {
-    lat: Math.floor(data[0].lat * 10000) / 10000,
-    lon: Math.floor(data[0].lon * 10000) / 10000,
+    name: data[0].name,
+    country: data[0].country,
+    lat: data[0].lat,
+    lon: data[0].lon,
   };
   return coord;
 }
 
+// async function getForecast(city) {
+//   const coord = await cityToCoord(city);
+//   const url = `${FORECAST_URL}lat=${coord.lat}&lon=${coord.lon}&cnt=5&appid=${API_KEY}`;
+//   const data = await utils.handleError(APICall)(url);
+//   return data;
+// }
+
 async function getWeather(city) {
   const coord = await cityToCoord(city);
-  const url = `${WEATHER_URL}lat=${coord.lat}&lon=${coord.lon}&cnt=5&appid=${API_KEY}`;
+  const url = `${WEATHER_URL}lat=${coord.lat}&lon=${coord.lon}&exclude=minutely,alerts&appid=${API_KEY}`;
   const data = await utils.handleError(APICall)(url);
+  data.cityName = coord.name;
+  data.country = coord.country;
   return data;
 }
 
