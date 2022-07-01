@@ -350,3 +350,4 @@ MigrationBackup/
 .ionide/
 .eslintrc.json
 .vscode
+.DS_Store
