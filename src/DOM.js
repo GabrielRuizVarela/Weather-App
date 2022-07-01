@@ -1,6 +1,7 @@
 /* eslint-disable no-param-reassign */
 import * as utils from './utils';
 import * as api from './api';
+import pubsub from './pubsub';
 
 const generateCards = () => {
   const cards = document.querySelectorAll('.extended>.card');
@@ -24,7 +25,7 @@ function manageTheme({ dt, sunrise, sunset }) {
   }
 }
 
-function render(data, unit) {
+function render([data, unit]) {
   document.querySelector('#weather-description').textContent = data.current.weather[0].description;
   document.querySelector('#city').textContent = `${data.cityName}, ${data.country}`;
   document.querySelector('#date').textContent = (new Date(data.current.dt * 1000)).toLocaleDateString(undefined, { weekday: 'long', month: 'long', day: 'numeric' });
@@ -58,4 +59,13 @@ function render(data, unit) {
   manageTheme(data.current);
 }
 
-export default render;
+function renderError(er) {
+  const errorField = document.querySelector('.search-box>.error');
+  if (er.name === 'TypeError') {
+    errorField.classList.add('error_active');
+    errorField.textContent = 'Please enter a valid location';
+  }
+}
+
+pubsub.subscribe('data arrived', render);
+pubsub.subscribe('error', renderError);

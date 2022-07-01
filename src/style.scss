@@ -10,7 +10,7 @@
 }
 :root {
   --size-bezel: 0.3rem;
-  --size-radius: 4px;
+  --size-radius: 5px;
 }
 
 .light {
@@ -177,13 +177,13 @@ img.bg {
 
 .input {
   position: relative;
-  
+
   &__label {
     position: absolute;
     left: 0;
     top: 0;
-    padding: calc(var(--size-bezel) * 0.75) calc(var(--size-bezel) * .5);
-    margin: calc(var(--size-bezel) * 0.75 + 3px) calc(var(--size-bezel) * .5);
+    padding: calc(var(--size-bezel) * 0.75) calc(var(--size-bezel) * 0.5);
+    margin: calc(var(--size-bezel) * 0.75 + 3px) calc(var(--size-bezel) * 0.5);
     background: pink;
     white-space: nowrap;
     transform: translate(0, 0);
@@ -192,6 +192,7 @@ img.bg {
     transition: transform 120ms ease-in;
     font-size: 0.8rem;
     color: var(--invt-color);
+    border-radius: var(--size-radius);
   }
   &__field {
     box-sizing: border-box;
@@ -200,17 +201,34 @@ img.bg {
     padding: calc(var(--size-bezel) * 1.5) var(--size-bezel);
     color: var(--sec-color);
     background: transparent;
-    border-radius: var(--size-radius);
-    
+
     &:focus,
     &:not(:placeholder-shown) {
       & + .input__label {
-        transform: translate(.25rem, -65%) scale(.8);
+        transform: translate(0.25rem, -65%) scale(0.8);
         color: var(--sec-color);
         background: var(--invt-color);
       }
     }
   }
+}
+
+.error {
+  display: flex;
+  opacity: 0;
+  bottom: -0.5em;
+  background: var(--invt-color);
+  width: calc(100% - 24px);
+  color: var(--sec-color);
+  position: absolute;
+  font-size: 0.8rem;
+  padding: 0.1rem;
+  justify-content: center;
+}
+.error_active {
+  opacity: 1;
+  bottom: calc(-1em - 0.2rem - 1px);
+  transition: bottom 250ms ease-in-out, opacity 200ms ease-in-out;
 }
 @media screen and (max-width: 1024px) {
   img.bg {

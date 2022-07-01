@@ -1,7 +1,9 @@
+/* eslint-disable no-unused-vars */
 import './style.scss';
 import * as api from './api';
 import * as utils from './utils';
-import render from './DOM';
+import DOM from './DOM';
+import pubsub from './pubsub';
 
 let unit = 'C';
 const unitChanger = document.querySelector('#unit-changer');
@@ -12,7 +14,7 @@ async function getWeather(city) {
   const formatedCity = utils.formatCityName(city);
   if (formatedCity) {
     const weather = await utils.handleError(api.getWeather)(formatedCity);
-    render(weather, unit);
+    pubsub.publish('data arrived', [weather, unit]);
   }
 }
 
@@ -21,6 +23,7 @@ searchButton.addEventListener('keydown', (e) => {
   if (e.key === 'Enter') {
     getWeather(e.target.value);
     e.target.value = '';
+    document.querySelector('.search-box>.error').classList.remove('error_active');
   }
 });
 document.querySelector('.search-box').addEventListener('click', () => {
