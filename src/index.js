@@ -6,6 +6,7 @@ import render from './DOM';
 let unit = 'C';
 const unitChanger = document.querySelector('#unit-changer');
 unitChanger.textContent = `Display in °${unit === 'C' ? 'F' : 'C'}`;
+document.documentElement.classList.add('light');
 
 async function getWeather(city) {
   const formatedCity = utils.formatCityName(city);
