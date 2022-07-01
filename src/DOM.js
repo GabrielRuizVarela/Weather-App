@@ -15,6 +15,7 @@ const generateCards = () => {
 generateCards();
 
 function manageTheme({ dt, sunrise, sunset }) {
+  // const img = document.querySelector('img');
   if (dt <= sunrise || dt >= sunset) {
     document.documentElement.classList.remove('light');
     document.documentElement.classList.add('dark');
