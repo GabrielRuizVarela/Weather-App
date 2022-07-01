@@ -1,10 +1,5 @@
 import pubsub from './pubsub';
 
-function getStringDay(UTCDate) {
-  const date = new Date(UTCDate * 1000);
-  return new Intl.DateTimeFormat('en-US', { weekday: 'long' }).format(date);
-}
-
 function handleError(fn) {
   // eslint-disable-next-line no-console
   return (...params) => fn(...params).catch((er) => {
@@ -38,5 +33,5 @@ function meterPerSecTo(wind, unit) {
   return wind;
 }
 export {
-  getStringDay, handleError, formatCityName, kelvinTo, meterPerSecTo,
+  handleError, formatCityName, kelvinTo, meterPerSecTo,
 };

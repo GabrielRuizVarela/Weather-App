@@ -23,13 +23,6 @@ async function cityToCoord(city) {
   return coord;
 }
 
-// async function getForecast(city) {
-//   const coord = await cityToCoord(city);
-//   const url = `${FORECAST_URL}lat=${coord.lat}&lon=${coord.lon}&cnt=5&appid=${API_KEY}`;
-//   const data = await utils.handleError(APICall)(url);
-//   return data;
-// }
-
 async function getWeather(city) {
   const coord = await cityToCoord(city);
   const url = `${WEATHER_URL}lat=${coord.lat}&lon=${coord.lon}&exclude=minutely,alerts&appid=${API_KEY}`;
@@ -44,6 +37,7 @@ function getIconURL(iconCode, size = '2x') {
   return url;
 }
 
+// In case of icon substitution this will be usefull
 function getIconCodeWithId(id) {
   let iconCode;
   switch (true) {

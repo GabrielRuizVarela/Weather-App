@@ -17,6 +17,7 @@ async function getWeather(city) {
     pubsub.publish('data arrived', [weather, unit]);
   }
 }
+getWeather('Tucuman');
 
 const searchButton = document.querySelector('#search-input');
 searchButton.addEventListener('keydown', (e) => {
@@ -46,5 +47,3 @@ function toggleUnits() {
 }
 const unitsButton = document.querySelector('#unit-changer');
 unitsButton.addEventListener('click', toggleUnits);
-
-getWeather('Tucuman');
