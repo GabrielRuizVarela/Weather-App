@@ -142,8 +142,9 @@ body {
     width: 120px;
     background-color: var(--bck-color);
     padding: 1rem;
-    border: 1px solid var(--main-color);
-    box-shadow: 2px 2px 4px var(--bck-color);
+    border-bottom: 5px solid var(--sec-color);
+    border-radius: 5px;
+    box-shadow: 0px 2px 4px rgb(21, 21, 21);
     .day {
       color: var(--invt-color);
     }
@@ -232,6 +233,9 @@ img.bg {
   transition: bottom 250ms ease-in-out, opacity 200ms ease-in-out;
 }
 @media screen and (max-width: 1024px) {
+  body {
+    overflow: scroll;
+  }
   img.bg {
     left: 50%;
     margin-left: -512px;
@@ -242,9 +246,9 @@ img.bg {
   .advance.advance {
     padding: 1rem;
   }
-  .extended{
+  .extended.extended {
     padding: 1rem;
-    overflow-y: auto;
-    overflow-x: scroll;
+    overflow-y: initial;
+    overflow-x: initial;
   }
 }
